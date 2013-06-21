@@ -82,14 +82,18 @@ func (t *Token) Float(bitSize int) (float64, error) {
 // the prefix matches, the string will be accessible with Body,
 // with the prefix removed. The full string (with prefix) is
 // still accessible with String.
-func (t *Token) HasPrefix(prefix string) bool {
+func (t *Token) HasPrefix(prefix ...string) bool {
 	if t.caseInsensitive {
-		prefix = strings.ToLower(prefix)
 		t.modified = strings.ToLower(t.modified)
 	}
-	if strings.HasPrefix(t.modified, prefix) {
-		t.modified = t.modified[len(prefix):]
-		return true
+	for _, p := range prefix {
+		if t.caseInsensitive {
+			p = strings.ToLower(p)
+		}
+		if strings.HasPrefix(t.modified, p) {
+			t.modified = t.modified[len(p):]
+			return true
+		}
 	}
 	return false
 }
@@ -98,20 +102,24 @@ func (t *Token) HasPrefix(prefix string) bool {
 // the suffix matches, the string will be accessible with Body,
 // with the suffix removed. The full string (with suffix) is
 // still accessible with String.
-func (t *Token) HasSuffix(suffix string) bool {
+func (t *Token) HasSuffix(suffix ...string) bool {
 	if t.caseInsensitive {
-		suffix = strings.ToLower(suffix)
 		t.modified = strings.ToLower(t.modified)
 	}
-	if strings.HasSuffix(t.modified, suffix) {
-		t.modified = t.modified[:len(t.modified)-len(suffix)]
-		return true
+	for _, s := range suffix {
+		if t.caseInsensitive {
+			s = strings.ToLower(s)
+		}
+		if strings.HasSuffix(t.modified, s) {
+			t.modified = t.modified[:len(t.modified)-len(s)]
+			return true
+		}
 	}
 	return false
 }
 
 // Int interprets the token in the given base (2 to 36) and
-// returns the corresponding value i.  If base == 0, the base is
+// returns the corresponding value i. If base == 0, the base is
 // implied by the string's prefix: base 16 for "0x", base 8 for
 // "0", and base 10 otherwise.
 //
