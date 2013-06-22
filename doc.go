@@ -45,14 +45,14 @@ Example usage:
 If the entered command was "stop pid 1234", then the command package could be used as follows:
 		t := scanner.Token()
 		switch {
-	
+
 			case token.HasPrefix("stop", "kill"):
 				if token.HasPrefix("pid") {
 					pid, err := token.Int(0, 0) // Automatic base, type int.
-			
+
 					// ...
 				}
-	
+
 			// ...
 */
 package command
