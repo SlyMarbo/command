@@ -92,7 +92,7 @@ func (t *Token) HasPrefix(prefix ...string) bool {
 		}
 		if strings.HasPrefix(t.modified, p) {
 			t.modified = t.modified[len(p):]
-			if t.modified[0] == " " {
+			if strings.HasPrefix(t.modified, " ") {
 				t.modified = t.modified[1:]
 			}
 			return true
