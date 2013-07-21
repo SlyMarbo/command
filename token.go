@@ -92,6 +92,9 @@ func (t *Token) HasPrefix(prefix ...string) bool {
 		}
 		if strings.HasPrefix(t.modified, p) {
 			t.modified = t.modified[len(p):]
+			if t.modified[0] == " " {
+				t.modified = t.modified[1:]
+			}
 			return true
 		}
 	}
@@ -112,6 +115,9 @@ func (t *Token) HasSuffix(suffix ...string) bool {
 		}
 		if strings.HasSuffix(t.modified, s) {
 			t.modified = t.modified[:len(t.modified)-len(s)]
+			if strings.HasSuffix(t.modified, " ") {
+				t.modified = t.modified[:len(t.modified)-1]
+			}
 			return true
 		}
 	}
