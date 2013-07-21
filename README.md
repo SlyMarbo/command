@@ -20,7 +20,7 @@ func main() {
 		switch {
 			
 			// Check for an empty token.
-			case token.Empty():
+			case token.Blank():
 				// ...
 			
 			// Compare against one string.
