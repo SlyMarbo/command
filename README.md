@@ -16,7 +16,7 @@ func main() {
 	scanner := command.NewScanner(os.Stdin, true) // Read from stdin.
 	
 	for scanner.Scan() {
-		t := scanner.Token()
+		token := scanner.Token()
 		switch {
 			
 			// Check for an empty token.
