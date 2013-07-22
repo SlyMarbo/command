@@ -47,7 +47,7 @@ type command struct {
 func (v *command) String() string {
 	s1 := strings.Repeat(" ", v.width1-len(v.name))
 	s2 := strings.Repeat(" ", v.width2-len(v.options))
-	return fmt.Sprintf("%s:  %s%s%  s%s", v.name, s1, v.options, s2, v.description)
+	return fmt.Sprintf("%s:  %s%s  %s%s", v.name, s1, v.options, s2, v.description)
 }
 
 func Describe(name, options, description string) {
