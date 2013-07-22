@@ -15,19 +15,21 @@ func init() {
 type commands []*command
 
 func (v commands) String() string {
-	width := 0
+	width1 := 0
+	width2 := 0
 	for _, val := range v {
-		if len(val.name) > width {
-			width = len(val.name)
+		if len(val.name) > width1 {
+			width1 = len(val.name)
+		}
+		if len(val.options) > width2 {
+			width2 = len(val.options)
 		}
 	}
 
 	buf := new(bytes.Buffer)
 	for _, val := range v {
-		if width < len(val.name) {
-			panic(width)
-		}
-		val.width = width
+		val.width1 = width1
+		val.width2 = width2
 		buf.WriteString(fmt.Sprintf("\t%v\n", val))
 	}
 
@@ -36,19 +38,20 @@ func (v commands) String() string {
 
 type command struct {
 	name        string
+	options     string
 	description string
-	width       int
+	width1      int
+	width2      int
 }
 
 func (v *command) String() string {
-	if v.width < len(v.name) {
-		panic(fmt.Sprint(v.width, len(v.name)))
-	}
-	return fmt.Sprintf("%s: %s%s", v.name, strings.Repeat(" ", v.width-len(v.name)), v.description)
+	s1 := strings.Repeat(" ", v.width1-len(v.name))
+	s2 := strings.Repeat(" ", v.width2-len(v.options))
+	return fmt.Sprintf("%s:  %s%s%  s%s", v.name, s1, v.options, s2, v.description)
 }
 
-func Describe(name, description string) {
-	usage = append(usage, &command{name: name, description: description})
+func Describe(name, options, description string) {
+	usage = append(usage, &command{name: name, options: options, description: description})
 }
 
 func Usage() string {
