@@ -2,8 +2,8 @@ package command
 
 import (
 	"bufio"
-	"io"
 	"errors"
+	"io"
 	"strings"
 )
 
