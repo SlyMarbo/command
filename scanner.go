@@ -57,8 +57,9 @@ func (s *Scanner) Scan() bool {
 		b := s.scanner.Scan()
 		if b {
 			str := s.scanner.Text()
+			lower := str
 			if s.caseInsensitive {
-				lower := strings.ToLower(str)
+				lower = strings.ToLower(str)
 			}
 			s.token = &Token{str, lower, s.caseInsensitive}
 		}
